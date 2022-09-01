@@ -35,10 +35,8 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   const email = req.body.email;
   const password = req.body.password;
-  console.log(password);
   let loadedUser;
   try {
     const user = await User.findOne({ email: email });
@@ -54,6 +52,7 @@ exports.login = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
+
     const token = jwt.sign(
       {
         email: loadedUser.email,
